@@ -51,29 +51,28 @@ The electricity datasets are state-wise data scraped from India's national grid.
 > **Source note:** The electricity data are used in the Tamil Nadu/TANGEDCO project context. They should not be described as directly published by TANGEDCO.
 
 ---
+ ### Datasets Used
 
-## Datasets Used
+| Dataset | Purpose |
+|---|---|
+| `peak_met_MW.csv` | Daily peak power supplied by state |
+| `peak_unmet_MW.csv` | Daily peak unmet demand by state |
+| `corrected_daily_energy_met_MU.csv` | Daily energy supplied by state |
+| `Tamil_Nadu_21_24.csv` | Daily Tamil Nadu weather data |
 
-| Dataset | Main Content | Use in Project |
-|---|---|---|
-| `peak_met_MW.csv` | Daily peak power supplied by state | Tamil Nadu peak load |
-| `peak_unmet_MW.csv` | Daily peak unmet demand by state | Tamil Nadu unmet demand |
-| `corrected_daily_energy_met_MU.csv` | Daily energy supplied by state | Tamil Nadu energy supplied |
-| `Tamil_Nadu_21_24.csv` | Daily Tamil Nadu weather variables | Weather and electricity-demand analysis |
-
-### Main Variables Used
+### Main Variables
 
 **Electricity variables**
 
-- `Peak_Load_MW` – selected Tamil Nadu daily peak electricity load.
-- `Unmet_Demand_MW` – selected Tamil Nadu daily peak unmet demand.
-- `Energy_Supplied_MU` – selected Tamil Nadu daily energy supplied.
+- `Peak_Load_MW` – Daily peak electricity load.
+- `Unmet_Demand_MW` – Daily peak unmet demand.
+- `Energy_Supplied_MU` – Daily energy supplied.
 
-**Weather variables** include daily minimum, mean and maximum measures for temperature, wind components, dew point, surface solar radiation, total cloud cover and UTCI, as available in the Tamil Nadu weather dataset.
+**Weather variables**
 
----
+The weather dataset includes available daily measurements for temperature, wind, dew point, surface solar radiation, total cloud cover, and Universal Thermal Climate Index (UTCI).
 
-## Tools & Technologies
+## Tools and Technologies
 
 - Python
 - Jupyter Notebook
@@ -82,343 +81,341 @@ The electricity datasets are state-wise data scraped from India's national grid.
 - Matplotlib
 - Seaborn
 
----
-
 ## Project Workflow
 
 **Industry Selection → Problem Identification → Dataset Collection → Data Cleaning → Data Transformation → Data Analysis → Data Visualization → Insights → Recommendations**
 
 ### Workflow Description
 
-1. **Industry Selection**  
-   The project is based on the Electricity / Power and Energy sector.
+1. **Industry Selection:** Electricity, power, and energy sector.
+2. **Problem Identification:** Examine Tamil Nadu electricity demand patterns using electricity and weather data.
+3. **Dataset Collection:** Use three state-wise electricity datasets and one Tamil Nadu weather dataset.
+4. **Data Cleaning:** Inspect dataset structures, handle dates and numeric fields, and prepare the datasets for analysis.
+5. **Data Transformation:** Select Tamil Nadu electricity records, prepare date-based features, and merge electricity data with weather data.
+6. **Data Analysis:** Perform trend, distribution, comparison, time-based, correlation, relationship, high-demand, and outlier analyses.
+7. **Data Visualization:** Create charts using Matplotlib and Seaborn.
+8. **Insights:** Interpret patterns and observations from the actual analysis.
+9. **Recommendations:** Provide practical suggestions based on the observed findings and limitations.
 
-2. **Problem Identification**  
-   The project focuses on understanding Tamil Nadu electricity demand conditions using peak load, energy supplied, unmet demand and weather data.
+## Data Cleaning and Transformation
 
-3. **Dataset Collection**  
-   Four raw datasets are collected and used: three state-wise electricity datasets and one Tamil Nadu weather dataset.
+The project cleans each raw dataset independently before merging.
 
-4. **Data Cleaning**  
-   Each dataset is inspected and cleaned independently before any merging is performed.
+The process includes:
 
-5. **Data Transformation**  
-   Tamil Nadu electricity records are selected from the cleaned state-wise datasets. Date-based and analytical features are then prepared.
+- Loading and inspecting the raw CSV files.
+- Checking dataset structure, columns, data types, and missing values.
+- Preparing date fields for analysis.
+- Converting relevant analytical fields into suitable numeric formats.
+- Handling invalid or unusable records where required by the cleaning process.
+- Saving the cleaned datasets.
+- Selecting Tamil Nadu electricity records.
+- Merging the electricity data with Tamil Nadu weather data.
+- Saving the merged dataset for feature engineering and exploratory analysis.
 
-6. **Data Analysis**  
-   Descriptive, distribution, trend, time-based, comparison, correlation, relationship, high-demand and outlier analyses are performed.
+### Feature Engineering
 
-7. **Data Visualization**  
-   Matplotlib and Seaborn are used to create charts for the major analyses.
+Date-based features are prepared to support:
 
-8. **Insights**  
-   Findings are interpreted from the actual tables, statistics and visualizations produced by the notebook.
+- Year-wise analysis.
+- Month-wise analysis.
+- Quarter-wise analysis.
+- Day-of-week analysis.
+- Year-month analysis.
 
-9. **Recommendations**  
-   Practical recommendations are based only on the observed patterns and limitations of the selected dataset.
+Temperature is also converted from Kelvin to Celsius for the relevant analysis.
 
----
+## Data Analysis and Visualization
 
-## Data Cleaning
+The following analyses and visualizations are included in the project.
 
-The notebook follows a separate cleaning process for each raw dataset before merging.
+### 1. Trend Analysis
 
-The workflow includes:
+Examines changes in electricity-demand indicators across the study period.
 
-- Loading each raw CSV independently.
-- Inspecting structure, columns, data types and missing values.
-- Handling date fields and preparing them for analysis.
-- Converting relevant analytical fields into appropriate numeric formats.
-- Removing invalid or unusable records where required by the cleaning process.
-- Saving each cleaned dataset immediately after its cleaning stage.
-- Selecting Tamil Nadu electricity records only after the state-wise datasets have been cleaned.
-- Merging the cleaned Tamil Nadu electricity data with the Tamil Nadu weather data.
-- Saving the merged Tamil Nadu analytical dataset before feature engineering and EDA.
+- Daily energy supplied trend.
+- Daily peak load trend.
+- Daily unmet demand trend.
 
----
+### 2. Category-wise Analysis
 
-## Project CSV Outputs
+Compares average peak electricity load across days of the week.
 
-The project produces exactly five CSV outputs:
+- Day-of-week analysis.
 
-```text
-clean_peak_met_MW.csv
-clean_peak_unmet_MW.csv
-clean_daily_energy_met_MU.csv
-clean_tamil_nadu_weather.csv
-Tamil_Nadu_TANGEDCO_Merged_2021_2024.csv
-```
+### 3. Comparison Analysis
 
-The first four files represent the cleaned source datasets. The final file is the merged Tamil Nadu analytical dataset used for feature engineering and exploratory analysis.
+Compares electricity-demand indicators across years and identifies high-demand days.
 
----
+- Year-wise energy comparison.
+- Year-wise peak load comparison.
 
-## Data Transformation and Feature Engineering
+### 4. Correlation Analysis
 
-After the cleaned Tamil Nadu electricity records are selected and merged with weather data, the notebook creates useful analytical features for exploratory analysis, including date-based fields used for:
+Examines associations among selected electricity and weather variables.
 
-- Year-wise analysis
-- Month-wise analysis
-- Quarter-wise analysis
-- Day-of-week analysis
-- Year-month analysis
+- Correlation matrix for electricity and weather variables.
 
-These features support the time-based, comparison and category-wise analyses performed in the notebook.
+The unmet-demand variable is excluded from the correlation matrix because it has no variation in the selected records.
 
----
+### 5. Distribution Analysis
 
-# Data Analysis & Visualization
+Examines the distribution of electricity-demand variables and high-demand observations.
 
-The project includes the following actual analyses and visualizations.
+- Peak electricity load distribution.
+- Boxplots for the main electricity variables.
+- Top peak-load days.
 
-## 1. Trend Analysis
+### 6. Relationship Analysis
 
-The trend analysis studies how electricity-demand indicators change across the selected study period.
+Examines relationships between peak electricity load and selected weather or electricity variables.
 
-Actual visualizations:
+- UTCI versus peak load.
+- Maximum temperature versus peak load.
+- Peak load versus energy supplied.
+- Solar radiation versus peak load.
+- Temperature versus peak load.
 
-- **Daily Peak Electricity Load in Tamil Nadu (2021–2024)**
-- **Daily Energy Supplied in Tamil Nadu (2021–2024)**
-- **Daily Peak Unmet Demand in Tamil Nadu (2021–2024)**
+### 7. Time-based Analysis
 
-The unmet-demand visualization is retained as a dataset finding because the selected Tamil Nadu unmet-demand values show no variation during the study period.
+Examines monthly and year-month variations in electricity-demand indicators.
 
-## 2. Category-wise Analysis
+- Monthly energy supplied analysis.
+- Monthly peak load analysis.
+- Year-month heatmap of peak load.
 
-The category-wise analysis compares average peak electricity load across days of the week.
+### 8. Outlier Analysis
 
-Actual visualization:
+Uses the Interquartile Range (IQR) method to identify unusual observations in selected variables, including peak load, unmet demand, energy supplied, and mean temperature in Celsius.
 
-- **Average Peak Load by Day of Week**
+Outliers are identified for further examination and are not automatically removed.
 
-## 3. Distribution Analysis
+## Key Insights
 
-The distribution analysis examines how the main electricity variables are spread across the available observations.
+The following observations are based on the project's analysis:
 
-Actual visualizations:
+- Peak electricity load and energy supplied show daily, yearly, monthly, and day-of-week variations in the selected data.
+- The top 15 peak-load days are identified for closer examination of high-demand periods.
+- The selected Tamil Nadu `Unmet_Demand_MW` values are recorded as zero throughout the study period.
+- Relationships between electricity-demand indicators and weather variables are examined using visualizations and correlation analysis.
+- The IQR method is used to identify observations outside the calculated bounds for selected variables.
+- The 2024 data cover only the period available through 28 April 2024, so 2024 is a partial year.
 
-- **Distribution of Daily Peak Electricity Load in Tamil Nadu**
-- **Peak Load Distribution**
-- **Energy Supplied Distribution**
+## Recommendations
 
-The peak-load and energy-supplied boxplots are shown separately because the variables use different units.
+Based on the observed patterns and the scope of this analysis:
 
-## 4. Correlation Analysis
+- Use the identified high peak-load days as focus periods for further demand monitoring and investigation.
+- Consider observed weather-demand relationships as exploratory evidence rather than proof of causation.
+- Preserve and document the recorded zero unmet-demand values instead of modifying them to create variation.
+- Interpret 2024 results as a partial-year analysis.
+- Investigate IQR-identified unusual observations before deciding whether any data-quality action is necessary.
 
-The correlation analysis examines the associations among selected electricity and weather variables.
+## Visualization Screenshots
 
-Actual visualization:
+The following screenshots are stored in the repository's `visualisation/` folder. The relative paths below match the provided folder structure.
 
-- **Correlation Matrix: Electricity and Weather Variables**
+### Trend Analysis
 
-The unmet-demand field is excluded from the correlation matrix because it has no variation in the selected Tamil Nadu records.
+**Daily Energy Supplied Trend**
 
-## 5. Comparison Analysis
+![Daily Energy Supplied Trend](visualisation/Trend%20analysis/daily%20energy%20supplied%20trend.png)
 
-The comparison analysis compares electricity-demand values across years and identifies the highest-demand days.
+**Daily Peak Load Trend**
 
-Actual visualizations:
+![Daily Peak Load Trend](visualisation/Trend%20analysis/daily%20peak%20load%20trend.png)
 
-- **Average Daily Peak Load by Year**
-- **Average Energy Supplied by Year**
-- **Top 15 Days by Peak Electricity Load**
+**Daily Unmet Demand Trend**
 
-## 6. Time-based Analysis
+![Daily Unmet Demand Trend](visualisation/Trend%20analysis/daily%20unmet%20trend.png)
 
-The time-based analysis examines recurring demand patterns across months and year-month combinations.
+### Category-wise Analysis
 
-Actual visualizations:
+**Day-of-Week Analysis**
 
-- **Average Peak Load by Month**
-- **Average Energy Supplied by Month**
-- **Average Peak Load by Year and Month** (heatmap)
+![Day of Week Analysis](visualisation/Category-wise%20analysis/day%20of%20week%20analysis.png)
 
-## 7. Relationship Analysis
+### Comparison Analysis
 
-The relationship analysis examines the association between electricity-demand indicators and selected weather or electricity variables.
+**Year-wise Energy Comparison**
 
-Actual visualizations:
+![Year Wise Energy Comparison](visualisation/Comparsion%20anlaysis/Year%20wise%20energy%20comparision.png)
 
-- **Mean Temperature vs Daily Peak Electricity Load**
-- **Maximum Temperature vs Daily Peak Electricity Load**
-- **Mean Solar Radiation vs Daily Peak Load**
-- **Mean UTCI vs Daily Peak Electricity Load**
-- **Peak Load vs Daily Energy Supplied**
-- **Monthly Temperature and Average Peak Load**
+**Year-wise Peak Load Comparison**
 
-These analyses are interpreted as relationships or associations in the data and are not treated as proof of causation.
+![Year Wise Peak Load Comparison](visualisation/Comparsion%20anlaysis/Year%20wise%20peak%20load%20comparision.png)
 
----
+### Correlation Analysis
 
-## Additional Analysis Performed
+**Electricity and Weather Variables**
 
-### High-Demand Analysis
+![Electricity and Weather Variables](visualisation/Correlation%20analysis/electricity%20and%20weather%20variables.png)
 
-The notebook extracts and displays the **Top 15 peak-load days** by sorting daily `Peak_Load_MW` values in descending order. This provides a focused table of the highest-demand periods for closer examination.
+### Distribution Analysis
 
-### Outlier Analysis Using IQR
+**Peak Electricity Load Distribution**
 
-The notebook applies the Interquartile Range (IQR) method to identify unusually high or low observations for selected variables.
+![Peak Electricity Load Distribution](visualisation/Distribution%20analysis/Peak%20Electricity%20Load%20Distribution.png)
 
-The analysis includes:
+**Boxplots for Main Electricity Variables**
 
-- `Peak_Load_MW`
-- `Unmet_Demand_MW`
-- `Energy_Supplied_MU`
-- `Temperature_C_mean`
+![Boxplots for Main Electricity Variables](visualisation/Distribution%20analysis/boxplots%20for%20main%20electricity%20variables.png)
 
-Outliers are identified for analysis and are not automatically removed from the dataset.
+**Top Peak Load Days**
 
----
+![Top Peak Load Days](visualisation/Distribution%20analysis/top%20peak%20load%20days.png)
 
-# Key Insights
+### Outlier Analysis
 
-The following points are based only on the analysis performed in the project notebook:
+**Temperature and Peak Load Seasonal Comparison**
 
-- The selected Tamil Nadu electricity data show clear daily, yearly, monthly and day-of-week variations in peak electricity load and energy supplied.
-- The project identifies the highest-demand days using a Top 15 peak-load analysis.
-- The selected Tamil Nadu `Unmet_Demand_MW` values show no variation during the study period; the unmet-demand observations recorded in the selected data are zero.
-- The project compares electricity-demand indicators with temperature, solar radiation, UTCI and other weather variables to examine observed relationships.
-- Correlation analysis is used to examine the strength and direction of associations among selected electricity and weather variables.
-- IQR-based outlier analysis identifies observations that fall outside the calculated lower and upper bounds for selected variables.
-- The 2024 study data cover only the period available through **28 April 2024**, so 2024 is a partial year in the analysis.
+![Temperature and Peak Load Seasonal Comparison](visualisation/Outlier%20analysis/temperature%20and%20peak%20load%20seasonal%20comparision.png)
 
----
+### Relationship Analysis
 
-# Recommendations
+**UTCI vs Peak Load**
 
-Based only on the project findings and analysis scope:
+![UTCI vs Peak Load](visualisation/Relationship%20analysis/UTCI%20vs%20peak%20load.png)
 
-- Use the identified high peak-load days as focus periods for closer electricity-demand monitoring and further analysis.
-- Consider the observed weather-demand relationships as supporting exploratory evidence when examining demand patterns, without treating them as causal effects.
-- Preserve and clearly document the zero unmet-demand pattern in the selected data rather than modifying the recorded values to create variation.
-- Treat the 2024 results as a partial-year view because the available study period ends on 28 April 2024.
-- Use the outlier results to identify unusual observations for further investigation rather than automatically removing them.
+**Maximum Temperature vs Peak Load**
 
----
+![Maximum Temperature vs Peak Load](visualisation/Relationship%20analysis/max%20temp%20vs%20peak%20load.png)
 
-# Visualization Screenshots
+**Peak Load vs Energy Supplied**
 
-The actual visualization screenshots can be uploaded to the `Visualizations/` folder in the GitHub repository. Since screenshot filenames have not been supplied here, no made-up filenames are included below.
+![Peak Load vs Energy Supplied](visualisation/Relationship%20analysis/peak%20load%20vs%20energy%20supplied.png)
 
-### Daily Peak Electricity Load in Tamil Nadu (2021–2024)
+**Solar Radiation vs Peak Load**
 
-<!-- Add the actual uploaded screenshot path here. -->
+![Solar Radiation vs Peak Load](visualisation/Relationship%20analysis/solar%20radiation%20vs%20peak%20load.png)
 
-### Daily Energy Supplied in Tamil Nadu (2021–2024)
+**Temperature vs Peak Load**
 
-<!-- Add the actual uploaded screenshot path here. -->
+![Temperature vs Peak Load](visualisation/Relationship%20analysis/temperature%20vs%20peak%20load.png)
 
-### Average Daily Peak Load by Year
+### Time-based Analysis
 
-<!-- Add the actual uploaded screenshot path here. -->
+**Monthly Energy Supplied Analysis**
 
-### Average Peak Load by Month
+![Monthly Energy Supplied Analysis](visualisation/Time%20analysis/monthly%20energy%20supplied%20analysis.png)
 
-<!-- Add the actual uploaded screenshot path here. -->
+**Monthly Peak Load Analysis**
 
-### Average Peak Load by Day of Week
+![Monthly Peak Load Analysis](visualisation/Time%20analysis/monthly%20peak%20load%20analysis.png)
 
-<!-- Add the actual uploaded screenshot path here. -->
+**Year-Month Heatmap of Peak Load**
 
-### Correlation Matrix: Electricity and Weather Variables
+![Year Month Heatmap of Peak Load](visualisation/Time%20analysis/year%20month%20heatmap%20of%20peak%20load.png)
 
-<!-- Add the actual uploaded screenshot path here. -->
+## Project Documentation
 
-### Mean Temperature vs Daily Peak Electricity Load
+The project presentation PDF is available in the `documentation/` folder.
 
-<!-- Add the actual uploaded screenshot path here. -->
+[**View the Project Presentation (PDF)**](documentation/Exploratory_Analysis_of_TANGEDCO_Electricity_Demand_Presentation.pdf)
 
-### Peak Load vs Daily Energy Supplied
-
-<!-- Add the actual uploaded screenshot path here. -->
-
-### Top 15 Days by Peak Electricity Load
-
-<!-- Add the actual uploaded screenshot path here if a screenshot of this table/analysis is uploaded. -->
-
----
-
-# Project Folder Structure
+## Project Folder Structure
 
 ```text
 Exploratory_Analysis_of_TANGEDCO_Electricity_Demand/
 │
 ├── README.md
 │
-├── Dataset/
-│   ├── Raw Data/
-│   │   ├── peak_met_MW.csv
-│   │   ├── peak_unmet_MW.csv
+├── Python/
+│   ├── data_cleaning.py
+│   ├── data_loading.py
+│   ├── data_visualization.py
+│   └── exploratory_analysis.py
+│
+├── dataset/
+│   ├── raw data/
+│   │   ├── Tamil_Nadu_21_24.csv
 │   │   ├── corrected_daily_energy_met_MU.csv
-│   │   └── Tamil_Nadu_21_24.csv
+│   │   ├── peak_met_MW.csv
+│   │   └── peak_unmet_MW.csv
 │   │
-│   └── Cleaned Data/
-│       ├── clean_peak_met_MW.csv
-│       ├── clean_peak_unmet_MW.csv
-│       ├── clean_daily_energy_met_MU.csv
-│       ├── clean_tamil_nadu_weather.csv
+│   ├── clean data/
+│   │   ├── clean_daily_energy_met_MU.csv
+│   │   ├── clean_peak_met_MW.csv
+│   │   ├── clean_peak_unmet_MW.csv
+│   │   └── clean_tamil_nadu_21_24.csv
+│   │
+│   └── merged dataset/
 │       └── Tamil_Nadu_TANGEDCO_Merged_2021_2024.csv
 │
-├── Notebook/
-│   └── Exploratory_Analysis_of_TANGEDCO_Electricity_Demand_Final(2).ipynb
+├── documentation/
+│   └── Exploratory_Analysis_of_TANGEDCO_Electricity_Demand_Presentation.pdf
 │
-└── Visualizations/
-    └── (Actual visualization screenshots uploaded to GitHub)
+├── notebook/
+│   └── Exploratory data analysis.ipynb
+│
+└── visualisation/
+    ├── Category-wise analysis/
+    │   └── day of week analysis.png
+    │
+    ├── Comparsion anlaysis/
+    │   ├── Year wise energy comparision.png
+    │   └── Year wise peak load comparision.png
+    │
+    ├── Correlation analysis/
+    │   └── electricity and weather variables.png
+    │
+    ├── Distribution analysis/
+    │   ├── Peak Electricity Load Distribution.png
+    │   ├── boxplots for main electricity variables.png
+    │   └── top peak load days.png
+    │
+    ├── Outlier analysis/
+    │   └── temperature and peak load seasonal comparision.png
+    │
+    ├── Relationship analysis/
+    │   ├── UTCI vs peak load.png
+    │   ├── max temp vs peak load.png
+    │   ├── peak load vs energy supplied.png
+    │   ├── solar radiation vs peak load.png
+    │   └── temperature vs peak load.png
+    │
+    ├── Time analysis/
+    │   ├── monthly energy supplied analysis.png
+    │   ├── monthly peak load analysis.png
+    │   └── year month heatmap of peak load.png
+    │
+    └── Trend analysis/
+        ├── daily energy supplied trend.png
+        ├── daily peak load trend.png
+        └── daily unmet trend.png
 ```
 
----
+## Reproducibility
 
-# Reproducibility
+The project is organized around Python scripts, a Jupyter Notebook, raw and cleaned datasets, a merged dataset, and saved visualization screenshots.
 
-The project is organized so that the analysis can be reproduced from the Jupyter Notebook by using the required raw datasets and the listed Python libraries.
+The analysis workflow is:
 
-The main workflow is:
+1. Load the raw datasets.
+2. Inspect and clean the source datasets independently.
+3. Save the cleaned CSV files.
+4. Select the Tamil Nadu electricity records.
+5. Merge electricity data with Tamil Nadu weather data.
+6. Save the merged dataset.
+7. Prepare analytical features.
+8. Perform exploratory data analysis.
+9. Generate and review visualizations.
+10. Interpret the observed patterns and document findings.
 
-```text
-Load Raw Datasets
-        ↓
-Initial Inspection
-        ↓
-Independent Data Cleaning
-        ↓
-Save Cleaned CSV Files
-        ↓
-Select Tamil Nadu Electricity Records
-        ↓
-Merge with Tamil Nadu Weather Data
-        ↓
-Save Merged Dataset
-        ↓
-Feature Engineering
-        ↓
-Exploratory Data Analysis
-        ↓
-Visualization
-        ↓
-Interpretation and Findings
-```
+## Project Scope and Limitations
 
----
+- This is an exploratory data analysis project, not a predictive machine-learning model.
+- The selected study period is 1 January 2021 to 28 April 2024.
+- The year 2024 is only partially represented.
+- The analysis depends on the selected source datasets and their recorded values.
+- The selected unmet-demand data contain no variation, limiting their usefulness in correlation and relationship analysis.
+- Observed relationships between electricity and weather variables do not establish causation.
 
-# Project Scope and Limitations
+## Dataset Citation
 
-- The project is an exploratory data analysis study and does not build a predictive machine-learning model.
-- The selected study period is **01 January 2021 to 28 April 2024**.
-- The year 2024 is therefore only partially represented.
-- The analysis is based on the selected source datasets and their recorded values.
-- The selected Tamil Nadu unmet-demand data contain no variation, so unmet demand does not provide variability for correlation or relationship analysis in this study.
-- Relationships observed between weather and electricity variables are exploratory associations and should not be interpreted as causal conclusions.
+Hunt, K., & Bloomfield, H. (2025). *Daily electricity demand data for Indian states (2014–2024).* Zenodo. https://doi.org/10.5281/zenodo.14983362
 
----
-
-# Dataset Citation
-
-Hunt, K., & Bloomfield, H. (2025). *Daily electricity demand data for Indian states (2014–2024)*. Zenodo. https://doi.org/10.5281/zenodo.14983362
-
----
-
-# Author
+## Author
 
 - **Name:** NEHA SHRUTHI U
 - **Student ID:** AF05308253
@@ -428,8 +425,7 @@ Hunt, K., & Bloomfield, H. (2025). *Daily electricity demand data for Indian sta
 
 ---
 
-# Summary
+*This project demonstrates the use of Python libraries for data cleaning, transformation, exploratory analysis, statistical examination, and visualization of electricity-demand and weather data.*
 
-**Exploratory Analysis of TANGEDCO Electricity Demand** is a Python-based exploratory data analysis project focused on Tamil Nadu electricity demand using daily electricity and weather data. The project independently cleans the source datasets, selects Tamil Nadu electricity records, merges them with Tamil Nadu weather data and performs trend, category-wise, distribution, correlation, comparison, time-based, relationship, high-demand and outlier analyses.
 
 The final analysis is supported by tables and visualizations created using Pandas, NumPy, Matplotlib and Seaborn, with interpretations based on the actual data available for the study period
